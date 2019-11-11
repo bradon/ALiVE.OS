@@ -19,7 +19,6 @@ See Also:
 Author:
 ARJay, Highhead
 ---------------------------------------------------------------------------- */
-
 private _group = _this select 0;
 private _position = _this select 1;
 private _radius = _this select 2;
@@ -81,6 +80,7 @@ if (count _buildings == 0) then {
 };
 
 // TODO(marcel): Spread units out over multiple buildings?
+
 {
     if (count _units == 0) exitWith {};
 
@@ -106,7 +106,9 @@ if (count _buildings == 0) then {
         } else {
             _buildingPositions = _building buildingPos -1;
         };
-
+        
+        private _lastPos = [0,0,1000];
+        private _minimumD = 2;
         {
             if (count _units == 0) exitWith {};
 
@@ -114,27 +116,30 @@ if (count _buildings == 0) then {
 
             private _unit = _units select 0;
             private _position = _x;
+            // Only move unit here if its not right next to the previous unit
+            if (_lastPos distance _position > _minimumD) then {
+                _lastPos = _position;
+                if (_moveInstantly) then {
+                    _unit setposATL _position;
+                    _unit setdir ((_unit getRelDir _building)-180);
 
-            if (_moveInstantly) then {
-                _unit setposATL _position;
-                _unit setdir ((_unit getRelDir _building)-180);
+                    dostop _unit;
+                } else {
+                    [_unit, _position, _building] spawn {
+                        private _unit = _this select 0;
+                        private _position = _this select 1;
+                        private _building = _this select 2;
 
-                dostop _unit;
-            } else {
-                [_unit, _position, _building] spawn {
-                    private _unit = _this select 0;
-                    private _position = _this select 1;
-                    private _building = _this select 2;
+                        [_unit, _position] call ALiVE_fnc_doMoveRemote;
 
-                    [_unit, _position] call ALiVE_fnc_doMoveRemote;
+                        waitUntil {sleep 1; _unit call ALiVE_fnc_unitReadyRemote};
 
-                    waitUntil {sleep 1; _unit call ALiVE_fnc_unitReadyRemote};
-
-                    doStop _unit;
+                        doStop _unit;
+                    };
                 };
-            };
 
-            _units deleteAt 0;
+                _units deleteAt 0;
+            };
         } foreach _buildingPositions;
     };
 } forEach _buildings;
