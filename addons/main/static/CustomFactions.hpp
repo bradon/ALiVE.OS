@@ -1162,4 +1162,27 @@ unsung_w_typeMappings = [] call ALIVE_fnc_hashCreate;
 
 [ALIVE_factionDefaultSupplies, "UNSUNG_W", ["uns_medcrate","uns_82mmammobox_US","uns_AmmoBoxUS_army","uns_EQPT_US","uns_resupply_crate_US"]] call ALIVE_fnc_hashSet;
 
+
+// GLOBMOB
+
+gm_ge_army_w_mappings = [] call ALIVE_fnc_hashCreate;
+[gm_ge_army_w_mappings, "Side", "WEST"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings, "GroupSideName", "WEST"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings, "FactionName", "gm_fc_ge"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings, "GroupFactionName", "gm_ge_army"] call ALIVE_fnc_hashSet;
+
+gm_ge_army_w_mappings_typeMappings = [] call ALIVE_fnc_hashCreate;
+[gm_ge_army_w_mappings_typeMappings, "Air", "Air"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings_typeMappings, "Armored", "gm_armored"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings_typeMappings, "Infantry", "gm_infantry_80"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings_typeMappings, "Mechanized", "gm_mechanizedInfantry_80"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings_typeMappings, "Motorized", "gm_motorizedinfantry_80"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings_typeMappings, "Motorized_MTP", "Motorized_MTP"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings_typeMappings, "SpecOps", "gm_recon"] call ALIVE_fnc_hashSet;
+[gm_ge_army_w_mappings_typeMappings, "Support", "gm_supply"] call ALIVE_fnc_hashSet;
+
+
+[gm_ge_army_w_mappings, "GroupFactionTypes", gm_ge_army_w_mappings_typeMappings] call ALIVE_fnc_hashSet;
+[ALIVE_factionCustomMappings, "gm_fc_GE", gm_ge_army_w_mappings] call ALIVE_fnc_hashSet;
+
 // ---------------------------------------------------------------------------------------------------------------------
