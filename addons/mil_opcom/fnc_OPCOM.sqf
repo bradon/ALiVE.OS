@@ -367,7 +367,10 @@ switch(_operation) do {
                     private _profiles_count = 0;
                     {
                         private _profiles_count_tmp = ([ALIVE_profileHandler, "getProfilesByFaction",_x] call ALIVE_fnc_profileHandler);
-
+                        if (count _profiles_count_tmp == 0) then {
+                            // Handle lowercased factions (GlobMob)
+                            _profiles_count_tmp = ([ALIVE_profileHandler, "getProfilesByFaction", toLower _x] call ALIVE_fnc_profileHandler);
+						};
                         if !(count _profiles_count_tmp == 0) then {
                             _profiles_count = _profiles_count + (count _profiles_count_tmp);
                         } else {
