@@ -345,7 +345,7 @@ GVAR(LOADOUT_DATA) = [
         } foreach uniformItems (_this select 0);
         _uniformItems;
      }, {
-		private ["_acreActive"];
+        private ["_acreActive"];
         PLACEHOLDERCOUNT = 0;
         _acreActive = isClass(configFile >> "CfgPatches" >> "acre_main");
         {
@@ -446,7 +446,7 @@ GVAR(LOADOUT_DATA) = [
         } foreach (_cargo select 0);
         _backpacks;
     },{
-		private ["_acreActive","_target"];
+        private ["_acreActive","_target"];
         clearAllItemsFromBackpack (_this select 0);
         _acreActive = isClass(configFile >> "CfgPatches" >> "acre_main");
         _target = _this select 0;
