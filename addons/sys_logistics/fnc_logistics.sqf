@@ -820,6 +820,7 @@ switch (_operation) do {
             _args setvariable [QGVAR(ACTIONS),nil];
 
             _result = false;
+        };
 
         case "removeActions": {
 
